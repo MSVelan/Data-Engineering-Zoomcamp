@@ -1,0 +1,4 @@
+2_DOCKER_SQL/ny_taxi_postgres_data/
+2_DOCKER_SQL/.*
+2_DOCKER_SQL/yellow_tripdata_2021-01.csv
+
