@@ -99,7 +99,7 @@ if __name__ == "__main__":
         -e PGADMIN_DEFAULT_PASSWORD="root" \
         -p 8080:80 \
         --network=pg_network \
-        --name pg-database \
+        --name pgadmin \
         dpage/pgadmin4
     
     To create the table using this file run the following:
@@ -115,8 +115,9 @@ if __name__ == "__main__":
     
     To dockerize the ingest_data.py file,
     I have changed the Dockerfile and then build using: docker build -t taxi_ingest:v001 .
-    docker run -it --network=pg-network \
-        taxi_ingest:v001 \
+    docker run -it \
+      --network=pg-network \
+      taxi_ingest:v001 \
         --user=root \
         --password=root \
         --host=<local-ip-address> \
@@ -124,4 +125,19 @@ if __name__ == "__main__":
         --db=ny_taxi \
         --table_name=yellow_taxi_trips \
         --url=${URL}
+    
+    To use the docker-compose file, run the following:
+    docker compose up -d
+    
+    Then run the dockerized program:
+    docker run -it taxi_ingest:v001 \
+        --user=root \
+        --password=root \
+        --host=pg-database \
+        --port=5432 \
+        --db=ny_taxi \
+        --table_name=yellow_taxi_trips \
+        --url=${URL}
+
+    This is convenient since, we need not run all the containers that are required for the program manually.
     """
